@@ -369,6 +369,7 @@ public class FillMissingElement {
                     }
                     startRow = StaticHelper.START_ROW;
                     startRow += dvList.get(0).getFindNum();
+                    StaticHelper.START_ROW = startRow;
                 } catch (IOException ex) {
                     Logger.getLogger(FillMissingElement.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (BiffException ex) {
@@ -395,7 +396,8 @@ public class FillMissingElement {
                     nextUrl = mr1.doValueReplaceAll(nextUrl, "%20");
                     nextSimple = false;
                 }
-            }else if(nextUrl == null && nextSimple){
+            }
+            if(nextUrl == null && nextSimple){
                 nextUrl = AnalysisFunction.getNextPageSimpleMethod(page);
                 nextComplicate = false;
             }

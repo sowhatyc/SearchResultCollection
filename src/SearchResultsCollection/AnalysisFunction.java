@@ -54,9 +54,12 @@ public class AnalysisFunction {
         if(page.getNextPage().contains("_")){
             int slashIndex = page.getNextPage().lastIndexOf("_");
             int dotIndex = page.getNextPage().lastIndexOf(".");
+            if(slashIndex > dotIndex){
+                return null;
+            }
             int pageNum = 0;
             boolean onlyDigit = true;
-            for(int i=slashIndex; i<dotIndex; ++i){
+            for(int i=slashIndex+1; i<dotIndex; ++i){
                 if(page.getNextPage().charAt(i) >= '0' && page.getNextPage().charAt(i) <= '9'){
                     pageNum = pageNum*10 + (page.getNextPage().charAt(i) - '0');
                 }else{

@@ -321,6 +321,32 @@ public class SmallTest {
         System.err.println("update excel done!!!!");
     }
     
+    public static void getContentFormCell(String filePath, int sheetNum, int sourcePosition, int destPosition, int startRow, String regex) throws IOException, BiffException, WriteException{
+        Workbook rw = jxl.Workbook.getWorkbook(new File(filePath));
+        WritableWorkbook workbook = Workbook.createWorkbook(new File(filePath),rw);
+        WritableSheet sheet = workbook.getSheet(sheetNum);
+        
+        int column = sheet.getColumns();
+        int row = sheet.getRows();
+        System.out.println("colunm row = " + column + " " + row);
+        
+        for(int i=startRow; i<row; ++i){
+            String content = sheet.getCell(sourcePosition, i).getContents();
+            MatchRegex mr = new MatchRegex(regex);
+            DataValue dv = mr.doValueMatch(content);
+            if(dv.getFindNum() > 0){
+                String findContent = dv.getValueAt(0)[0];
+                sheet.addCell(new Label(destPosition, i, findContent.trim()));
+            }
+        }
+        workbook.write(); 
+        workbook.close();
+        if(rw != null){
+            rw.close();
+        }
+        System.err.println("update excel done!!!!");
+    }
+    
     public static void getContentFromWeb(String filePath, int sheetNum, int position, int startRow, String regex, String something) throws IOException, BiffException, WriteException{
         Workbook rw = jxl.Workbook.getWorkbook(new File(filePath));
         WritableWorkbook workbook = Workbook.createWorkbook(new File(filePath),rw);
