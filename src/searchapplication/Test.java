@@ -64,8 +64,9 @@ public class Test {
 //            System.out.println(mr.doValueReplaceAll(content, "%20"));
 //            System.out.println(dv.getFindNum());
 //            System.out.println(content);
-        int a = 1;
+        int b = 1;
         System.out.println("a");
+        System.out.println(b);
     }
     
 }
