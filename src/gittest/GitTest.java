@@ -15,7 +15,6 @@ public class GitTest {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("It's just a test for git!");
-        System.out.println("It's a another test for git");
+        int a = 2;
     }
 }
