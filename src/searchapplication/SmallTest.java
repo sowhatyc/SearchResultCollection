@@ -321,7 +321,7 @@ public class SmallTest {
         System.err.println("update excel done!!!!");
     }
     
-    public static void getContentFormCell(String filePath, int sheetNum, int sourcePosition, int destPosition, int startRow, String regex) throws IOException, BiffException, WriteException{
+    public static void getContentFormCell(String filePath, int sheetNum, int sourcePosition, int destPosition, int startRow, String regex, boolean isAdd) throws IOException, BiffException, WriteException{
         Workbook rw = jxl.Workbook.getWorkbook(new File(filePath));
         WritableWorkbook workbook = Workbook.createWorkbook(new File(filePath),rw);
         WritableSheet sheet = workbook.getSheet(sheetNum);
@@ -330,6 +330,12 @@ public class SmallTest {
         int row = sheet.getRows();
         System.out.println("colunm row = " + column + " " + row);
         
+        if(isAdd){
+            sheet.insertColumn(destPosition);
+            if(destPosition <= sourcePosition){
+                sourcePosition += 1;
+            }
+        }
         for(int i=startRow; i<row; ++i){
             String content = sheet.getCell(sourcePosition, i).getContents();
             MatchRegex mr = new MatchRegex(regex);
@@ -471,78 +477,89 @@ public class SmallTest {
     
     
     public static void main(String[] args){
-        String sourceFilePath = "E:\\data\\By_yc_\\社会1_1.xls";
-//        String destFilePath = "GQQCZJ_Region_2012_09_10.xls";
-//        ArrayList<String> words = new ArrayList<String>();
-//        words.add("自驾");
-//        words.add("游");
-//        words.add("记");
-//        words.add("回家");
-//        words.add("旅");
-//        words.add("出门");
-//        words.add("作业");
-//        words.add("出门");
-//        words.add("老家");
-//        words.add("拍");
-////        words.add("路");
-//        words.add("车友");
-//        words.add("奔");
-//        words.add("归来");
-//        words.add("行");
-//        words.add("打算");
-//        words.add("高速");
-//        words.add("照片");
-//        words.add("堵");
-//        words.add("跑");
-//        words.add("公里");
-//        words.add("km");
-//        words.add("油耗");
-//        words.add("玩");
-//        words.add("美景");
-//        words.add("拼车");
-//            statisticOfOnWay(sourceFilePath, words, 6, 4, 0);
-//            statisticOfRegion(sourceFilePath, destFilePath, 10, 0);
-//            clearContent(sourceFilePath, 4, 0);
-//            testSomething(sourceFilePath, 1, 5, 0, "十八大");
-//            addSomething(sourceFilePath, 0, 0, 0, "http://liaoba.people.com.cn/");
-//            clearContent(sourceFilePath, 0, 2, 0);
-//            spiltContent(sourceFilePath, 0, 3, 4, 0, "/");
-//            clearContent(sourceFilePath, 0, 5, 0, "@.*?<br>");
-//            clearContent(sourceFilePath, 0, 5, 0, ".*?-----<br>");
-//            clearContent(sourceFilePath, 0, 5, 0, ".*?=====<br>");
-//            clearContent(sourceFilePath, 0, 5 ,0, "<[^>]*>");
-//            getContentFromWeb(sourceFilePath, 0, 0, 0, "<a href=\"([^\"]+)\">同主题阅读</a>", "http://forum.home.news.cn");
-//            for(int i=6; i<12; ++i){
-//                addSomething(sourceFilePath, i, 0, 0, "http://bbs.ifeng.com/");
-//            }
-//            ArrayList<String> fileList = new FileStorage().getFileList("E:/data/18TY_domain/18TY_ZZ");
-//            ArrayList<String> fileList = new ArrayList<String>();
-//            fileList.add("E:\\data\\18KD_domain\\凯迪社区领域数据.xls");
-//            for(String file: fileList){
-////                chooseSomething(file, 0, 5, 6, 0, "@([^\\s<+]*?)[\\s<+]", false);
-//                addSomething(file, 1, 0, 0, "http://club.kdnet.net");
-//                spiltContent(file, 1, 5, 6, 0, "/");
-//                System.out.println(file + " is done!");
-//            }
-//            ArrayList<String> date = new ArrayList<String>();
-//            ArrayList<String> dateCount = new ArrayList<String>();
-//            ArrayList<String> wholeDate = new ArrayList<String>();
-//            readDate(sourceFilePath, 0, 1, date, dateCount, wholeDate);
-//            System.out.println(wholeDate.get(0) + " " + wholeDate.get(1));
-//            int dotIndex = sourceFilePath.indexOf(".");
-//            wholeDate = generateDate(wholeDate.get(0), wholeDate.get(1), "2012-01-13");
-//            String destFilePath = sourceFilePath.substring(0, dotIndex) + "_byYc" + sourceFilePath.substring(dotIndex);
-        ArrayList<String> date = generateDate("2012-11-14", "2012-12-19", "1988-01-10");
-        System.out.println(date.size());
-//        try {
-//            completeDate(destFilePath, date, dateCount, wholeDate, 0, 1);
-//        } catch (IOException ex) {
-//            Logger.getLogger(SmallTest.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (BiffException ex) {
-//            Logger.getLogger(SmallTest.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (WriteException ex) {
-//            Logger.getLogger(SmallTest.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        String sourceFilePath = "E:\\data\\18RMLB_domain\\rmlb\\";
+        try {
+            //        String destFilePath = "GQQCZJ_Region_2012_09_10.xls";
+            //        ArrayList<String> words = new ArrayList<String>();
+            //        words.add("自驾");
+            //        words.add("游");
+            //        words.add("记");
+            //        words.add("回家");
+            //        words.add("旅");
+            //        words.add("出门");
+            //        words.add("作业");
+            //        words.add("出门");
+            //        words.add("老家");
+            //        words.add("拍");
+            ////        words.add("路");
+            //        words.add("车友");
+            //        words.add("奔");
+            //        words.add("归来");
+            //        words.add("行");
+            //        words.add("打算");
+            //        words.add("高速");
+            //        words.add("照片");
+            //        words.add("堵");
+            //        words.add("跑");
+            //        words.add("公里");
+            //        words.add("km");
+            //        words.add("油耗");
+            //        words.add("玩");
+            //        words.add("美景");
+            //        words.add("拼车");
+            //            statisticOfOnWay(sourceFilePath, words, 6, 4, 0);
+            //            statisticOfRegion(sourceFilePath, destFilePath, 10, 0);
+            //            clearContent(sourceFilePath, 4, 0);
+            //            testSomething(sourceFilePath, 1, 5, 0, "十八大");
+            //            addSomething(sourceFilePath, 0, 0, 0, "http://liaoba.people.com.cn/");
+            //            clearContent(sourceFilePath, 0, 2, 0);
+            //            spiltContent(sourceFilePath, 0, 3, 4, 0, "/");
+            //            clearContent(sourceFilePath, 0, 5, 0, "@.*?<br>");
+            //            clearContent(sourceFilePath, 0, 5, 0, ".*?-----<br>");
+            //            clearContent(sourceFilePath, 0, 5, 0, ".*?=====<br>");
+            //            clearContent(sourceFilePath, 0, 5 ,0, "<[^>]*>");
+            //            getContentFromWeb(sourceFilePath, 0, 0, 0, "<a href=\"([^\"]+)\">同主题阅读</a>", "http://forum.home.news.cn");
+            //            for(int i=6; i<12; ++i){
+            //                addSomething(sourceFilePath, i, 0, 0, "http://bbs.ifeng.com/");
+            //            }
+                        ArrayList<String> fileList = new FileStorage().getFileList(sourceFilePath);
+            //            ArrayList<String> fileList = new ArrayList<String>();
+            //            fileList.add("E:\\data\\18KD_domain\\凯迪社区领域数据.xls");
+                        for(String file: fileList){
+            //                chooseSomething(file, 0, 5, 6, 0, "@([^\\s<+]*?)[\\s<+]", false);
+//                            addSomething(file, 1, 0, 0, "http://club.kdnet.net");
+//                            spiltContent(file, 1, 5, 6, 0, "/");
+                            getContentFormCell(file, 0, 3, 3, 0, "href=\"([^\"]+)\"", true);
+                            clearContent(file, 0, 4, 0, "<[^>]+>");
+                            System.out.println(file + " is done!");
+                        }
+            //            ArrayList<String> date = new ArrayList<String>();
+            //            ArrayList<String> dateCount = new ArrayList<String>();
+            //            ArrayList<String> wholeDate = new ArrayList<String>();
+            //            readDate(sourceFilePath, 0, 1, date, dateCount, wholeDate);
+            //            System.out.println(wholeDate.get(0) + " " + wholeDate.get(1));
+            //            int dotIndex = sourceFilePath.indexOf(".");
+            //            wholeDate = generateDate(wholeDate.get(0), wholeDate.get(1), "2012-01-13");
+            //            String destFilePath = sourceFilePath.substring(0, dotIndex) + "_byYc" + sourceFilePath.substring(dotIndex);
+            //        ArrayList<String> date = generateDate("2012-11-14", "2012-12-19", "1988-01-10");
+            //        System.out.println(date.size());
+            //        try {
+            //            completeDate(destFilePath, date, dateCount, wholeDate, 0, 1);
+            //        } catch (IOException ex) {
+            //            Logger.getLogger(SmallTest.class.getName()).log(Level.SEVERE, null, ex);
+            //        } catch (BiffException ex) {
+            //            Logger.getLogger(SmallTest.class.getName()).log(Level.SEVERE, null, ex);
+            //        } catch (WriteException ex) {
+            //            Logger.getLogger(SmallTest.class.getName()).log(Level.SEVERE, null, ex);
+            //        }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(SmallTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (BiffException ex) {
+            Logger.getLogger(SmallTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (WriteException ex) {
+            Logger.getLogger(SmallTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
