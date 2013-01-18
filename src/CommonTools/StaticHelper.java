@@ -30,6 +30,7 @@ public class StaticHelper {
         TOKEN_LIST.add("2.00LhH9oBUr2S1B50c41ef8e0lhiZsC");
         TOKEN_LIST.add("2.006FPoQDMBZ9tCe23adab65cCdJarB");
         TOKEN_LIST.add("2.006FPoQDONoHKD2c4191cdb2to8HCD");
+        TOKEN_LIST.add("2.006FPoQDeWyIeB04a45bcd2aRYcC1D");
     }
     
     public static void initialUserNameList(){
