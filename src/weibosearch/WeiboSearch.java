@@ -4,9 +4,11 @@
  */
 package weibosearch;
 
+import CommonTools.FileStorage;
 import CommonTools.StaticHelper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import java.util.logging.Level;
@@ -36,8 +38,10 @@ public class WeiboSearch {
         */
         
         //********************* get weibo comments **********************
-        String id = "3535374674423031";
-        StaticHelper.START_ROW = 0;
-        WeiboProcesser.getCommentsById(id, StaticHelper.access_level.test_level.ordinal(), 1);
+        ArrayList<Object> weiboIds = FileStorage.getContentFromExcel("E:\\data\\18WEIBO\\user_domain.xls", 0, 0, 0, 19);
+        for(Object id : weiboIds){
+            StaticHelper.START_ROW = 0;
+            WeiboProcesser.getCommentsById((String) id, StaticHelper.access_level.test_level.ordinal(), 1);
+        }
     }
 }
