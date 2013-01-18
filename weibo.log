@@ -1,0 +1,19 @@
+237231 DEBUG [2013-01-18 15:05:29]  Request:
+237231 DEBUG [2013-01-18 15:05:29]  GET:https://api.weibo.com/2/comments/show.json
+237232 DEBUG [2013-01-18 15:05:29]  Authorization: OAuth2 2.00LhH9oB1qXG3B3a1d426967HK1c7C
+237232 DEBUG [2013-01-18 15:05:29]  API-RemoteIP: 202.117.21.89
+237326 DEBUG [2013-01-18 15:05:29]  Response:
+237327 DEBUG [2013-01-18 15:05:29]  https StatusCode:200
+237327 DEBUG [2013-01-18 15:05:29]  Server:nginx/1.2.0
+237327 DEBUG [2013-01-18 15:05:29]  Date:Fri, 18 Jan 2013 07:05:32 GMT
+237327 DEBUG [2013-01-18 15:05:29]  Content-Type:application/json;charset=UTF-8
+237327 DEBUG [2013-01-18 15:05:29]  Content-Length:100
+237327 DEBUG [2013-01-18 15:05:29]  Connection:keep-alive
+237327 DEBUG [2013-01-18 15:05:29]  Api-Server-IP:10.73.32.226
+237327 DEBUG [2013-01-18 15:05:29]  Vary:Accept-Encoding
+237327 DEBUG [2013-01-18 15:05:29]  X-Varnish:1954906949
+237328 DEBUG [2013-01-18 15:05:29]  Age:0
+237328 DEBUG [2013-01-18 15:05:29]  Via:1.1 varnish
+237328 DEBUG [2013-01-18 15:05:29]  SINA-LB:cWgxMzIuaGEucWgyLmJqLmxvYWRiYWxhbmNlLnNpbg==
+237328 DEBUG [2013-01-18 15:05:29]  {"comments":[],"marks":[],"hasvisible":false,"previous_cursor":0,"next_cursor":0,"total_number":699}
+
