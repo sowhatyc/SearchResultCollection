@@ -25,12 +25,12 @@ public class StaticHelper {
     public static ArrayList<String> USER_NAME_LIST = new ArrayList<String>();
     
     public static void initialTokenList(){
-        TOKEN_LIST.add("2.00LhH9oBqZNgRB4ca866a80cR4tjnC");
-        TOKEN_LIST.add("2.00LhH9oB1qXG3B3a1d426967HK1c7C");
+        TOKEN_LIST.add("2.00LhH9oBa66y5E8eea3a0cb701dURf");
         TOKEN_LIST.add("2.00LhH9oBUr2S1B50c41ef8e0lhiZsC");
-        TOKEN_LIST.add("2.006FPoQDMBZ9tCe23adab65cCdJarB");
-        TOKEN_LIST.add("2.006FPoQDONoHKD2c4191cdb2to8HCD");
-        TOKEN_LIST.add("2.006FPoQDeWyIeB04a45bcd2aRYcC1D");
+        TOKEN_LIST.add("2.00LhH9oB1qXG3B3a1d426967HK1c7C");
+//        TOKEN_LIST.add("2.006FPoQDMBZ9tCe23adab65cCdJarB");
+//        TOKEN_LIST.add("2.006FPoQDONoHKD2c4191cdb2to8HCD");
+//        TOKEN_LIST.add("2.006FPoQDeWyIeB04a45bcd2aRYcC1D");
     }
     
     public static void initialUserNameList(){

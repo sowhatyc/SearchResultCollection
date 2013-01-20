@@ -181,14 +181,14 @@ public class WeiboProcesser {
     }
     
     
-    public static void getCommentsById(String id, int level, int page){
+    public static void getCommentsById(String id, int level, int page, String parentDir){
         StaticHelper.initialTokenList();
         StaticHelper.FILE_PATH = null;
         int tokenListSize = StaticHelper.TOKEN_LIST.size();
         int sleepTime = 60 * 1000;
         int tokenTime = 100;
         if(level == StaticHelper.access_level.test_level.ordinal()){
-            sleepTime = 30 * 1000;
+            sleepTime = 15 * 1000;
             tokenTime = 120;
         }else if(level == StaticHelper.access_level.general_level.ordinal()){
             sleepTime = 5 * 1000;
@@ -202,7 +202,7 @@ public class WeiboProcesser {
             while(getCommentsById(id, page, accessToken, searchResultList)){
                 try {
                     if(StaticHelper.FILE_PATH == null){
-                        FileStorage.saveWeiboSearchResultExcel(StaticHelper.FILE_DIRECTORY + id + "_评论_1.xls", searchResultList);
+                        FileStorage.saveWeiboSearchResultExcel(StaticHelper.FILE_DIRECTORY + parentDir + id + "_评论_1.xls", searchResultList);
                     }else{
                         FileStorage.saveWeiboSearchResultExcel(StaticHelper.FILE_PATH, searchResultList);
                     }
@@ -239,7 +239,7 @@ public class WeiboProcesser {
             } catch (InterruptedException ex1) {
                 Logger.getLogger(WeiboProcesser.class.getName()).log(Level.SEVERE, null, ex1);
             }
-            getCommentsById(id, level, page);
+            getCommentsById(id, level, page, parentDir);
         }
         StaticHelper.START_ROW += searchResultList.size();
     }
