@@ -17,3 +17,23 @@
 567296 DEBUG [2013-01-20 01:11:02]  SINA-LB:cWgxMzIuaGEucWgyLmJqLmxvYWRiYWxhbmNlLnNpbg==
 567296 DEBUG [2013-01-20 01:11:02]  {"comments":[],"marks":[],"hasvisible":false,"previous_cursor":0,"next_cursor":0,"total_number":7400}
 
+0    INFO  [2013-01-21 15:48:44]  code: 6a5c55721aad499e98a20aa5a4dee8fd
+25   DEBUG [2013-01-21 15:48:44]  Request:
+25   DEBUG [2013-01-21 15:48:44]  POSThttps://api.weibo.com/oauth2/access_token
+909  DEBUG [2013-01-21 15:48:45]  Response:
+910  DEBUG [2013-01-21 15:48:45]  https StatusCode:200
+910  DEBUG [2013-01-21 15:48:45]  Server:nginx/1.2.0
+910  DEBUG [2013-01-21 15:48:45]  Date:Mon, 21 Jan 2013 07:48:45 GMT
+910  DEBUG [2013-01-21 15:48:45]  Content-Type:text/plain;charset=UTF-8
+910  DEBUG [2013-01-21 15:48:45]  Content-Length:117
+910  DEBUG [2013-01-21 15:48:45]  Connection:keep-alive
+911  DEBUG [2013-01-21 15:48:45]  Pragma:No-cache
+911  DEBUG [2013-01-21 15:48:45]  Cache-Control:no-cache
+911  DEBUG [2013-01-21 15:48:45]  Expires:Thu, 01 Jan 1970 00:00:00 GMT
+911  DEBUG [2013-01-21 15:48:45]  Api-Server-IP:10.73.89.47
+911  DEBUG [2013-01-21 15:48:45]  X-Varnish:3825118870
+911  DEBUG [2013-01-21 15:48:45]  Age:0
+911  DEBUG [2013-01-21 15:48:45]  Via:1.1 varnish
+911  DEBUG [2013-01-21 15:48:45]  SINA-LB:cWgxMzIuaGEucWgyLmJqLmxvYWRiYWxhbmNlLnNpbg==
+916  DEBUG [2013-01-21 15:48:45]  {"access_token":"2.00LhH9oBa66y5E8eea3a0cb701dURf","remind_in":"157679999","expires_in":157679999,"uid":"1661652401"}
+
