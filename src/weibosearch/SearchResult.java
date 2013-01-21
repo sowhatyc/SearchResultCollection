@@ -4,10 +4,9 @@
  */
 package weibosearch;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -26,7 +25,7 @@ public class SearchResult {
     private String rrcName;
     private String rrcText;
     private Date rrcDate;
-    private ArrayList<Object> attributes = new ArrayList<Object>();
+    private Map<Integer, Object> attributes = new HashMap<Integer, Object>();
     private int nextNumber = 0;
     /**
      * @return the userID
@@ -38,9 +37,9 @@ public class SearchResult {
     /**
      * @param userID the userID to set
      */
-    public void setUserID(String userID) {
+    public void setUserID(String userID, int position) {
         this.userID = userID;
-        attributes.add(this.userID);
+        attributes.put(position, this.userID);
     }
 
     /**
@@ -53,9 +52,9 @@ public class SearchResult {
     /**
      * @param userName the userName to set
      */
-    public void setUserName(String userName) {
+    public void setUserName(String userName, int position) {
         this.userName = userName;
-        attributes.add(this.userName);
+        attributes.put(position, this.userName);
     }
 
 
@@ -69,9 +68,9 @@ public class SearchResult {
     /**
      * @param text the text to set
      */
-    public void setText(String text) {
+    public void setText(String text, int position) {
         this.text = text;
-        attributes.add(this.text);
+        attributes.put(position, this.text);
     }
 
     /**
@@ -84,9 +83,9 @@ public class SearchResult {
     /**
      * @param mid the mid to set
      */
-    public void setMid(String mid) {
+    public void setMid(String mid, int position) {
         this.mid = mid;
-        attributes.add(this.mid);
+        attributes.put(position, this.mid);
     }
 
     /**
@@ -99,9 +98,9 @@ public class SearchResult {
     /**
      * @param repostsCount the repostsCount to set
      */
-    public void setRepostsCount(int repostsCount) {
+    public void setRepostsCount(int repostsCount, int position) {
         this.repostsCount = repostsCount;
-        attributes.add(this.repostsCount);
+        attributes.put(position, this.repostsCount);
     }
 
     /**
@@ -114,9 +113,9 @@ public class SearchResult {
     /**
      * @param commentsCount the commentsCount to set
      */
-    public void setCommentsCount(int commentsCount) {
+    public void setCommentsCount(int commentsCount, int position) {
         this.commentsCount = commentsCount;
-        attributes.add(this.commentsCount);
+        attributes.put(position, this.commentsCount);
     }
 
     /**
@@ -129,9 +128,9 @@ public class SearchResult {
     /**
      * @param date the date to set
      */
-    public void setDate(Date date) {
+    public void setDate(Date date, int position) {
         this.date = date;
-        attributes.add(this.date);
+        attributes.put(position, this.date);
     }
 
     /**
@@ -144,9 +143,9 @@ public class SearchResult {
     /**
      * @param retweetedID the retweetedID to set
      */
-    public void setRrcID(String retweetedID) {
+    public void setRrcID(String retweetedID, int position) {
         this.rrcID = retweetedID;
-        attributes.add(this.rrcID);
+        attributes.put(position, this.rrcID);
     }
 
     /**
@@ -159,9 +158,9 @@ public class SearchResult {
     /**
      * @param retweetedText the retweetedText to set
      */
-    public void setRrcText(String retweetedText) {
+    public void setRrcText(String retweetedText, int position) {
         this.rrcText = retweetedText;
-        attributes.add(this.rrcText);
+        attributes.put(position, this.rrcText);
     }
 
     /**
@@ -174,9 +173,9 @@ public class SearchResult {
     /**
      * @param retweetedDate the retweetedDate to set
      */
-    public void setRrcDate(Date retweetedDate) {
+    public void setRrcDate(Date retweetedDate, int position) {
         this.rrcDate = retweetedDate;
-        attributes.add(this.rrcDate);
+        attributes.put(position, this.rrcDate);
     }
 
     /**
@@ -189,17 +188,12 @@ public class SearchResult {
     /**
      * @param retweetedName the retweetedName to set
      */
-    public void setRrcName(String retweetedName) {
+    public void setRrcName(String retweetedName, int position) {
         this.rrcName = retweetedName;
-        attributes.add(this.rrcName);
+        attributes.put(position, this.rrcName);
     }
     
-    public Object getNext(){
-        if(nextNumber < this.attributes.size()){
-            ++nextNumber;
-            return attributes.get(nextNumber-1);
-        }else{
-            return null;
-        }
+    public Map<Integer, Object> getAttributes(){
+        return attributes;
     }
 }

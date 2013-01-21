@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,17 +72,20 @@ public class FileStorage {
         }
         StaticHelper.FILE_PATH = path;
         for(int i = 0; i<searchResults.size();i++){
-            int k=0;
-            Object o;
-            while((o = searchResults.get(i).getNext()) != null){
-                if(o instanceof String){
-                    sheet.addCell(new Label(k, i+StaticHelper.START_ROW, (String) o));
-                }else if(o instanceof Date){
-                    sheet.addCell(new DateTime(k, i+StaticHelper.START_ROW, (Date) o));
-                }else if(o instanceof Integer){
-                    sheet.addCell(new jxl.write.Number(k, i+StaticHelper.START_ROW, (int) o));
+            Map<Integer, Object> attributes = searchResults.get(i).getAttributes();
+            Iterator<Integer> keysIter = attributes.keySet().iterator();
+            while(keysIter.hasNext()){
+                Integer position = keysIter.next();
+                if(position.intValue() >= 0){
+                    Object o = attributes.get(position);
+                    if(o instanceof String){
+                        sheet.addCell(new Label(position.intValue(), i+StaticHelper.START_ROW, (String) o));
+                    }else if(o instanceof Date){
+                        sheet.addCell(new DateTime(position.intValue(), i+StaticHelper.START_ROW, (Date) o));
+                    }else if(o instanceof Integer){
+                        sheet.addCell(new jxl.write.Number(position.intValue(), i+StaticHelper.START_ROW, (int) o));
+                    }
                 }
-                ++k;
             }
 //            sheet.addCell(new Label(k++,i+StaticHelper.START_ROW,searchResults.get(i).getMid()));
 //            sheet.addCell(new DateTime(k++,i+StaticHelper.START_ROW,searchResults.get(i).getDate()));

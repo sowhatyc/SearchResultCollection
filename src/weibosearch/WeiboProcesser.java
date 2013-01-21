@@ -40,28 +40,45 @@ public class WeiboProcesser {
                 return false;
             }
             SearchResult sr = new SearchResult();
-            sr.setMid(s.getMid());
-            sr.setDate(s.getCreatedAt());
-            sr.setRepostsCount(s.getRepostsCount());
-            sr.setCommentsCount(s.getCommentsCount());
-            sr.setText(s.getText());
-            sr.setUserID(s.getUser().getId());
-            sr.setUserName(s.getUser().getScreenName());
+            sr.setMid(s.getMid(), 0);
+            sr.setText(s.getText(), 1);
+            sr.setDate(s.getCreatedAt(), 2);
+            sr.setRepostsCount(s.getRepostsCount(), 3);
+            sr.setCommentsCount(s.getCommentsCount(), 4);
+            sr.setUserID(s.getUser().getId(), 5);
+            sr.setUserName(s.getUser().getScreenName(), 6);
             Status retweed = s.getRetweetedStatus();
             if(retweed != null && retweed.getUser() != null){
-                sr.setRrcID(retweed.getMid());
-                sr.setRrcDate(retweed.getCreatedAt());
-                sr.setRrcText(retweed.getText());
-                sr.setRrcName(retweed.getUser().getScreenName());
-            }else{
-                sr.setRrcID(null);
-                sr.setRrcDate(null);
-                sr.setRrcText(null);
-                sr.setRrcName(null);
+                sr.setRrcID(retweed.getMid(), 7);
+                sr.setRrcDate(retweed.getCreatedAt(), 8);
+                sr.setRrcText(retweed.getText(), 9);
+                sr.setRrcName(retweed.getUser().getScreenName(), 10);
             }
             searchResultList.add(sr);
         }
         return true;
+    }
+    
+    public static SearchResult getStatusById(String id, String accessToken){
+        Timeline tl = new Timeline();
+        tl.setToken(accessToken);
+        try {
+            Status s = tl.showStatus(id);
+            SearchResult sr = new SearchResult();
+            sr.setMid(id, 0);
+            sr.setDate(s.getCreatedAt(), 2);
+            sr.setUserID(s.getUser().getId(), 3);
+            sr.setUserName(s.getUser().getScreenName(), 4);
+            sr.setText(s.getText(), 5);
+            Status retweed = s.getRetweetedStatus();
+            if(retweed != null && retweed.getUser() != null){
+                sr.setRrcText(retweed.getText(), 9);
+            }
+            return sr;
+        } catch (WeiboException ex) {
+            Logger.getLogger(WeiboProcesser.class.getName()).log(Level.SEVERE, null, ex);
+            return getStatusById(id, accessToken);
+        }
     }
     
     
@@ -69,25 +86,21 @@ public class WeiboProcesser {
         Comments cmts = new Comments();
         cmts.setToken(accessToken);
         CommentWapper sw = cmts.getCommentById(id, new Paging(page));
-        if(sw.getComments().size() == 0){
+        if(sw.getComments().isEmpty()){
             return false;
         }
         for(Comment cmt : sw.getComments()){
             SearchResult sr = new SearchResult();
-            sr.setMid(cmt.getMid());
-            sr.setDate(cmt.getCreatedAt());
-            sr.setText(cmt.getText());
-            sr.setUserID(cmt.getUser().getId());
-            sr.setUserName(cmt.getUser().getScreenName());
+            sr.setMid(cmt.getMid(), 0);
+            sr.setDate(cmt.getCreatedAt(), 2);
+            sr.setUserID(cmt.getUser().getId(), 3);
+            sr.setUserName(cmt.getUser().getScreenName(), 4);
+            sr.setText(cmt.getText(), 5);
             Comment replyComment = cmt.getReplycomment();
             if(replyComment != null && replyComment.getUser() != null){
-                sr.setRrcID(replyComment.getMid());
-                sr.setRrcDate(replyComment.getCreatedAt());
-                sr.setRrcName(replyComment.getUser().getScreenName());
-            }else{
-                sr.setRrcID(null);
-                sr.setRrcDate(null);
-                sr.setRrcName(null);
+                sr.setRrcID(replyComment.getMid(), 6);
+                sr.setRrcDate(replyComment.getCreatedAt(), 7);
+                sr.setRrcName(replyComment.getUser().getScreenName(), 8);
             }
             searchResultList.add(sr);
         }
@@ -242,5 +255,20 @@ public class WeiboProcesser {
             getCommentsById(id, level, page, parentDir);
         }
         StaticHelper.START_ROW += searchResultList.size();
+        searchResultList.clear();
+        searchResultList.add(getStatusById(id, StaticHelper.TOKEN_LIST.get(tokenNumber+1)));
+        try {
+            if(StaticHelper.FILE_PATH == null){
+                FileStorage.saveWeiboSearchResultExcel(StaticHelper.FILE_DIRECTORY + parentDir + id + "_评论_1.xls", searchResultList);
+            }else{
+                FileStorage.saveWeiboSearchResultExcel(StaticHelper.FILE_PATH, searchResultList);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(WeiboProcesser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (BiffException ex) {
+            Logger.getLogger(WeiboProcesser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (WriteException ex) {
+            Logger.getLogger(WeiboProcesser.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
